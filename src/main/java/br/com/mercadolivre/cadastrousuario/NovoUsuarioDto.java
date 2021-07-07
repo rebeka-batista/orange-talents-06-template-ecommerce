@@ -1,8 +1,8 @@
 package br.com.mercadolivre.cadastrousuario;
 
+import br.com.mercadolivre.validator.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +12,7 @@ public class NovoUsuarioDto {
     @Email
     @NotBlank
     @JsonProperty("email")
+    @UniqueValue(domainClass = UsuarioEntity.class, fieldName = "email")
     private String email;
 
     @NotBlank

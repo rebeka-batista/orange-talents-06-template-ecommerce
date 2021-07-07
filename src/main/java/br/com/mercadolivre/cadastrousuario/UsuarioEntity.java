@@ -1,7 +1,6 @@
 package br.com.mercadolivre.cadastrousuario;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -10,6 +9,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import java.time.LocalDateTime;
 
 @Entity(name = "usuario")
 public class UsuarioEntity {
@@ -28,6 +29,10 @@ public class UsuarioEntity {
     @Column(name = "senha", nullable = false)
     private String senha;
 
+    @NotNull
+    @PastOrPresent
+    private LocalDateTime instanteCriacao;
+
     public UsuarioEntity(@NotBlank @Email String email,
                          @NotNull @Valid SenhaLimpa sl) {
         Assert.isTrue(StringUtils.hasLength(email), "O e-mail não pode ser em branco!");
@@ -35,6 +40,7 @@ public class UsuarioEntity {
         // Assert.isTrue(senha.length() >= 6, "A senha deve ter pelo menos 6 caracteres");
         this.email = email;
         this.senha = sl.hash();
+        this.instanteCriacao = LocalDateTime.now();
     }
 
 
@@ -43,6 +49,7 @@ public class UsuarioEntity {
         return "Cadastro Usuário: " +
                 "\nId: " + id +
                 ", \nEmail: " + email +
-                ", \nSenha: " + senha;
+                ", \nSenha: " + senha +
+                ", \nData/Hora de criação: " + instanteCriacao;
     }
 }

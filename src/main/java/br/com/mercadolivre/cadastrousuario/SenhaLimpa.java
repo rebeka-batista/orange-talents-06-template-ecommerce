@@ -22,7 +22,7 @@ public class SenhaLimpa {
         this.senha = senha;
     }
 
-    public String hash(){
+    public String hash() {
         return new BCryptPasswordEncoder().encode(senha);
     }
 
