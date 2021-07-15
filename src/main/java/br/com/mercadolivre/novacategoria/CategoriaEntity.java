@@ -21,6 +21,14 @@ public class CategoriaEntity {
     public CategoriaEntity() {
     }
 
+    @Override
+    public String toString() {
+        return "\n\nCategoria: " +
+                "\nId: " + id +
+                "\nNome da Categoria: " + nomeCategoria +
+                "\nCategoria Mãe: " + categoriaMae;
+    }
+
     public CategoriaEntity(@NotBlank String nomeCategoria) {
         this.nomeCategoria = nomeCategoria;
     }

@@ -49,7 +49,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public String toString() {
-        return "Cadastro Usuário: " +
+        return "\nUsuário: " +
                 "\nId: " + id +
                 ", \nEmail: " + email +
                 ", \nSenha: " + senha +
