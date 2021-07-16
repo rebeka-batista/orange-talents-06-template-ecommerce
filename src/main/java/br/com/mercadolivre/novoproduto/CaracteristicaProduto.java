@@ -39,8 +39,7 @@ public class CaracteristicaProduto {
         return "Caracteristica: " +
                 "\nId: " + id +
                 "\nNome: " + nome +
-                "\nDescricao: " + descricao +
-                "\nProduto: " + produto;
+                "\nDescricao: " + descricao;
     }
 
     public String getNome() {
