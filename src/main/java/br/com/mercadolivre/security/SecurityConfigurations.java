@@ -21,6 +21,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/categoria/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/produto/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/produto/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/compra/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

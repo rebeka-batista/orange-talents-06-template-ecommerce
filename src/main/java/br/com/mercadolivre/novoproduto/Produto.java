@@ -109,6 +109,14 @@ public class Produto {
         return this.perguntas.stream().map(funcaoMapeadora).collect(Collectors.toCollection(TreeSet::new));
     }
 
+    public Boolean abateEstoque(@Positive @NotNull Integer quantidade) {
+        Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero para abater o estoque!" + quantidade);
+        if (quantidade <= this.quantidade) {
+            this.quantidade -= quantidade;
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
