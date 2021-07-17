@@ -1,5 +1,7 @@
 package br.com.mercadolivre.novoproduto;
 
+import br.com.mercadolivre.cadastraopiniao.OpiniaoEntity;
+import br.com.mercadolivre.cadastrapergunta.PerguntaEntity;
 import br.com.mercadolivre.cadastrousuario.UsuarioEntity;
 import br.com.mercadolivre.novacategoria.CategoriaEntity;
 import org.hibernate.validator.constraints.Length;
@@ -12,10 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Entity(name = "produto")
@@ -53,6 +53,12 @@ public class Produto {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<ImagemProduto> imagens = new HashSet<>();
 
+    @OneToMany(mappedBy = "produto")
+    @OrderBy("titulo asc")
+    private SortedSet<PerguntaEntity> perguntas = new TreeSet<>();
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    public Set<OpiniaoEntity> opinioes = new HashSet<>();
 
     public Produto(@NotBlank String nomeProduto,
                    @NotNull @Positive Integer quantidade,
@@ -91,6 +97,19 @@ public class Produto {
         return donoProduto;
     }
 
+    public <T> Set<T> mapCaracteristicas(Function<CaracteristicaProduto, T> funcaoMapeadora) {
+        return this.caracteristicas.stream().map(funcaoMapeadora).collect(Collectors.toSet());
+    }
+
+    public <T> Set<T> mapImagens(Function<ImagemProduto, T> funcaoMapeadora) {
+        return this.imagens.stream().map(funcaoMapeadora).collect(Collectors.toSet());
+    }
+
+    public <T extends Comparable<T>> SortedSet<T> mapPerguntas(Function<PerguntaEntity, T> funcaoMapeadora) {
+        return this.perguntas.stream().map(funcaoMapeadora).collect(Collectors.toCollection(TreeSet::new));
+    }
+
+
     @Override
     public String toString() {
         return "Produto: " +
@@ -109,6 +128,29 @@ public class Produto {
     public Produto() {
     }
 
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public Set<CaracteristicaProduto> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public Set<PerguntaEntity> getPerguntas() {
+        return perguntas;
+    }
+
+    public Opinioes getOpinioes() {
+        return new Opinioes(this.opinioes);
+    }
 
     @Override
     public boolean equals(Object o) {

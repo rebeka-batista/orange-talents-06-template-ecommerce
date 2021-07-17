@@ -1,4 +1,4 @@
-package br.com.mercadolivre.cadastraopniao;
+package br.com.mercadolivre.cadastraopiniao;
 
 import br.com.mercadolivre.cadastrousuario.UsuarioEntity;
 import br.com.mercadolivre.novoproduto.Produto;
@@ -23,8 +23,8 @@ public class NovaOpiniaoDto {
     @JsonProperty("descricao")
     private String descricao;
 
-    public OpniaoEntity toModel(@NotNull @Valid Produto produto, @NotNull @Valid UsuarioEntity usuarioConsumidor) {
-        return new OpniaoEntity(nota, titulo, descricao, produto, usuarioConsumidor);
+    public OpiniaoEntity toModel(@NotNull @Valid Produto produto, @NotNull @Valid UsuarioEntity usuarioConsumidor) {
+        return new OpiniaoEntity(nota, titulo, descricao, produto, usuarioConsumidor);
     }
 
     NovaOpiniaoDto() {

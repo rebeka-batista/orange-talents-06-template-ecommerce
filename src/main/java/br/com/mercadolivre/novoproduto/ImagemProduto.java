@@ -43,6 +43,10 @@ public class ImagemProduto {
                 "\nLink: " + link;
     }
 
+    public String getLink() {
+        return link;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

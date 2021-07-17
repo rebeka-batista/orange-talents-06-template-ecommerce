@@ -1,4 +1,4 @@
-package br.com.mercadolivre.cadastraopniao;
+package br.com.mercadolivre.cadastraopiniao;
 
 import br.com.mercadolivre.autenticausuario.UsuarioRepository;
 import br.com.mercadolivre.cadastrousuario.UsuarioEntity;
@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/produto")
-public class OpniaoController {
+public class OpiniaoController {
 
     @PersistenceContext
     private EntityManager manager;
@@ -27,7 +27,7 @@ public class OpniaoController {
                                   @PathVariable("id") Long id) {
         Produto produto = manager.find(Produto.class, id);
         UsuarioEntity usuarioConsumidor = usuarioRepository.findByEmail("rebekabatista@outlook.com").get();
-        OpniaoEntity opniaoEntity = novaOpiniao.toModel(produto, usuarioConsumidor);
+        OpiniaoEntity opniaoEntity = novaOpiniao.toModel(produto, usuarioConsumidor);
         manager.persist(opniaoEntity);
         return opniaoEntity.toString();
     }

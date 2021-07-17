@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity(name = "usuario")
 public class UsuarioEntity implements UserDetails {
@@ -73,6 +74,20 @@ public class UsuarioEntity implements UserDetails {
 
     public LocalDateTime getInstanteCriacao() {
         return instanteCriacao;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UsuarioEntity)) return false;
+        UsuarioEntity that = (UsuarioEntity) o;
+        return getEmail().equals(that.getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail());
     }
 
     @Override
