@@ -86,6 +86,11 @@ public class Produto {
         return this.donoProduto.equals(donoProduto);
     }
 
+
+    public UsuarioEntity getDonoProduto() {
+        return donoProduto;
+    }
+
     @Override
     public String toString() {
         return "Produto: " +
